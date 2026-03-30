@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define TAM 10
+#define TAM 100000000
 
 int main(){
     int rodadas = 10;
