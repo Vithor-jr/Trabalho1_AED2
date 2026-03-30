@@ -3,20 +3,16 @@
 #include <time.h>
 #include "questao3.h"
 
-#define TAM 10
-
-int vet[TAM];
-
-void PreencherVetor(int v[], unsigned tam) {
+void PreencherVetor(int v[], int tam) {
     for (int i = 0; i < tam; i++) {
         v[i] = rand() % tam;
     }
 }
 
-void MostrarVetor(int v[], unsigned tam){
+void MostrarVetor(int v[], int tam){
 	printf("[");
 	for (int i = 0; i<tam; i++){
-		if(i!=TAM-1){
+		if(i!=tam-1){
 			printf("%d ", v[i]);
 		} else {
 			printf("%d]\n", v[i]);			
@@ -24,13 +20,13 @@ void MostrarVetor(int v[], unsigned tam){
 	}
 }
 
-void CopiarVetor(int v1[], int v2[], unsigned tam){
+void CopiarVetor(int v1[], int v2[], int tam){
 	for (int i=0; i<tam; i++){
 		v2[i] = v1[i];
 	}
 }
 
-void BubbleSort(int v[], unsigned tam){
+void BubbleSort(int v[], int tam){
     int aux;
 
     for(int i = 0; i < tam - 1; i++) {
@@ -44,14 +40,14 @@ void BubbleSort(int v[], unsigned tam){
     }
 }
 
-void InsertionSort(int v[], unsigned tam){
+void InsertionSort(int v[], int tam){
 	int pivot, j;
 
 	for (int i=1; i<tam; i++){
 		pivot = v[i];
 		j = i - 1;
 
-		while (v[j]>pivot && j>=0){
+		while (j >= 0 && v[j] > pivot){
 			v[j+1] = v[j];
 			j--;
 		}
@@ -59,7 +55,7 @@ void InsertionSort(int v[], unsigned tam){
 	}
 }
 
-void SelectionSort(int v[], unsigned tam){
+void SelectionSort(int v[], int tam){
 	int posMenor, aux;
 	
 	for(int i = 0; i<tam-1; i++){
@@ -75,10 +71,10 @@ void SelectionSort(int v[], unsigned tam){
 	}
 }
 
-void Intercala(int v[], unsigned inicio, unsigned meio, unsigned fim, int aux[]) {
-    unsigned i = inicio;
-    unsigned j = meio + 1;
-    unsigned k = inicio;
+void Intercala(int v[], int inicio, int meio, int fim, int aux[]) {
+ int i = inicio;
+ int j = meio + 1;
+ int k = inicio;
 
     while (i <= meio && j <= fim) {
         if (v[i] <= v[j]) {
@@ -108,21 +104,25 @@ void Intercala(int v[], unsigned inicio, unsigned meio, unsigned fim, int aux[])
     }
 }
 
-void MergeSortR(int v[], int vaux[], unsigned inicio, unsigned fim) {
+void MergeSortR(int v[], int vaux[], int inicio, int fim) {
     if (inicio < fim) {
-        unsigned meio = (inicio + fim) / 2;
+     int meio = (inicio + fim) / 2;
         MergeSortR(v, vaux, inicio, meio);
         MergeSortR(v, vaux, meio + 1, fim);
         Intercala(v, inicio, meio, fim, vaux);
     }
 }
 
-void MergeSort(int v[], unsigned tam) {
-    int vaux[TAM];
+void MergeSort(int v[], int tam) {
+    int *vaux = (int *)malloc(tam * sizeof(int));
+    if (vaux == NULL) return;  
     MergeSortR(v, vaux, 0, tam - 1);
+    free(vaux);
 }
 
-void QuickSortR(int v[], unsigned inicio, unsigned fim) {
+void QuickSortR(int v[], int inicio, int fim) {
+    if (inicio >= fim) return;
+
     int i = inicio, j = fim;
     int pivot = v[(inicio + fim) / 2];
     int temp;
@@ -140,14 +140,11 @@ void QuickSortR(int v[], unsigned inicio, unsigned fim) {
         }
     }
 
-    if (inicio < j)
-        QuickSortR(v, inicio, j);
-
-    if (i < fim)
-        QuickSortR(v, i, fim);
+    QuickSortR(v, inicio, j);
+    QuickSortR(v, i, fim);
 }
 
-void QuickSort(int v[], unsigned tam) {
+void QuickSort(int v[], int tam) {
     if (tam <= 1) return;
     QuickSortR(v, 0, tam - 1);
 }
