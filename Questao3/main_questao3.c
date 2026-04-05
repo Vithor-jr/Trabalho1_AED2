@@ -10,7 +10,13 @@ int main(){
 
     srand(time(NULL));
 
-    vetor array, bubble, insertion, selection, merge, quick;
+    //vetor array, bubble, insertion, selection, merge, quick;
+    int *array = (int *)malloc(TAM * sizeof(int));
+    int *bubble = (int *)malloc(TAM * sizeof(int));
+    int *insertion = (int *)malloc(TAM * sizeof(int));
+    int *selection = (int *)malloc(TAM * sizeof(int));
+    int *merge = (int *)malloc(TAM * sizeof(int));
+    int *quick = (int *)malloc(TAM * sizeof(int));
 
     for (int i=1; i<=rodadas; i++){
         PreencherVetor(array, TAM);
@@ -81,5 +87,12 @@ int main(){
         printf("Tempo: %f s\n", tempo);
     }
 
+    free(array);
+    free(bubble);
+    free(insertion);
+    free(selection);
+    free(merge);
+    free(quick);
+    
     return 0;
 }

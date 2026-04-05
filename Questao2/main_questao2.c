@@ -83,5 +83,7 @@ for (int i = 0; i < NUMERO_BUSCAS; i++) {
     printf("Lista -> Media: %.6f ms | Desvio: %.6f ms\n", media_lista * 1000, desvio_lista * 1000);
     printf("===================================================\n");
 
+    free(lista);
+
     return 0;
 }
