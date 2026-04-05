@@ -3,7 +3,7 @@
 
 #include <time.h>
 
-#define TAM 100000000
+#define TAM 10000000
 
 typedef int Vetor[TAM];
 extern Vetor vet;

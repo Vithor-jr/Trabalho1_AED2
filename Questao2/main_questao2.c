@@ -24,10 +24,10 @@ int main() {
 
     for (int i = 0; i < NUMERO_GARANTIDAS; i++) {
         int pos = rand() % TAM;
-        chaves[i] = vet[pos];
+        chaves[i] = vet[pos]; // Sempre vai dar OK
     }
     for (int i = NUMERO_GARANTIDAS; i < NUMERO_BUSCAS; i++) {
-        chaves[i] = (rand() % TAM) + 1;
+        chaves[i] = TAM + i + 1000; // Sempre vai dar N/A
     }
 
     // criando vetores para armazenanr os tempos e resultados das buscas 
@@ -56,7 +56,6 @@ for (int i = 0; i < NUMERO_BUSCAS; i++) {
         printf("%d | %d| %.4f | %.4f | %s\n", 
                i + 1, chaves[i], tempos_vetor[i]*1000, tempos_lista[i]*1000, 
                (res_vetor[i] == 1) ? "OK" : "N/A");
-            
     }
 
 
