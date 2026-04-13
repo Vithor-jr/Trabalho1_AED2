@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "Questao1/questao1.h"
-#include "Questao2/questao2.h"
-#include "Questao3/questao3.h"
+#include "../Questao1/questao1.h"
+#include "../Questao2/questao2.h"
+#include "../Questao3/questao3.h"
 
 int main () {
     srand(time(NULL));
@@ -16,7 +16,6 @@ int main () {
     // Questão 2: Busca Sequencial no Vetor e na Lista
     for(int tam = 100000; tam <= 1000000; tam += 100000) {
         printf("---------------BUSCA SEQUENCIAL E BINÁRIA EM VETOR COM %d ELEMENTOS------------------\n\n", tam);
-
         // Preenchendo o vetor desordenado
         printf("Preenchendo vetor desordenadamente...\n\n");
         int *array = (int *)malloc(tam * sizeof(int));
@@ -160,4 +159,43 @@ int main () {
         free(merge);
         free(quick);
     }
+
+    FILE *f = fopen("tempos.csv", "w");
+    
+    // Busca sequencial e binária
+    fprintf(f, "algoritmo,tamanho,caso,tempo_s\n");
+
+    i = 0;
+    for (int tam = 100000; tam <= 1000000; tam += 100000) {
+        fprintf(f, "sequencial,%d,existe,%.9f\n",   tam, temposSeq[i]);   i++;
+        fprintf(f, "sequencial,%d,aleatorio,%.9f\n", tam, temposSeq[i]);  i++;
+    }
+    
+    j = 0;
+    for (int tam = 100000; tam <= 1000000; tam += 100000) {
+        fprintf(f, "binaria,%d,existe,%.9f\n",   tam, temposBin[j]);   j++;
+        fprintf(f, "binaria,%d,aleatorio,%.9f\n", tam, temposBin[j]);  j++;
+    }
+    
+    // Busca vetor vs lista
+    w = 0;
+    for (int tam = 100000; tam <= 1000000; tam += 100000) {
+        fprintf(f, "vetor,%d,existe,%.9f\n",    tam, temposVet[w]);
+        fprintf(f, "lista,%d,existe,%.9f\n",    tam, temposLista[w]);   w++;
+        fprintf(f, "vetor,%d,aleatorio,%.9f\n", tam, temposVet[w]);
+        fprintf(f, "lista,%d,aleatorio,%.9f\n", tam, temposLista[w]);   w++;
+    }
+    
+    // Ordenação
+    i = 0;
+    for (int tam = 10000; tam <= 100000; tam += 10000) {
+        fprintf(f, "bubble,%d,unico,%.9f\n",    tam, temposBubble[i]);
+        fprintf(f, "insertion,%d,unico,%.9f\n", tam, temposInsertion[i]);
+        fprintf(f, "selection,%d,unico,%.9f\n", tam, temposSelection[i]);
+        fprintf(f, "merge,%d,unico,%.9f\n",     tam, temposMerge[i]);
+        fprintf(f, "quick,%d,unico,%.9f\n",     tam, temposQuick[i]);
+        i++;
+    }
+    fclose(f);
+    printf("\nTempos exportados para tempos.csv\n");
 }   
