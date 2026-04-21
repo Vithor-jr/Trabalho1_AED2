@@ -1,11 +1,19 @@
-typedef int vetor[10];
+typedef struct {
+    int *conteudo;
+    int tamanho;
+} Vetor;
 
-void PreencherVetor(int v[], int tam);
-void CopiarVetor(int v1[], int v2[], int tam);
-void MostrarVetor(int v[], int tam);
+Vetor CriarVetor(int tamanho);
+void LiberarVetor(Vetor *v);
+void PreencherVetor(Vetor *v);
+void CopiarVetor(Vetor *origem, Vetor *destino);
+void MostrarVetor(Vetor *v);
 
-void BubbleSort(int v[], int tam);
-void InsertionSort(int v[], int tam);
-void SelectionSort(int v[], int tam);
-void MergeSort(int v[], int tam);
-void QuickSort(int v[], int tam);
+void BubbleSort(Vetor *v);
+void InsertionSort(Vetor *v);
+void SelectionSort(Vetor *v);
+void MergeSort(Vetor *v);
+void QuickSort(Vetor *v);
+
+double calcularMedia(double *tempos, int tam);
+double calcularDesvioPadrao(double *tempos, int tam, double media);
