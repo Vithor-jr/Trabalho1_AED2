@@ -15,13 +15,13 @@ void LiberarVetor(Vetor *v) {
     v->tamanho = 0;
 }
 
-void PreencherVetorOrdenado(Vetor *v) {
+void PreencherVetorDesordenado(Vetor *v) {
     for (int i = 0; i < v->tamanho; i++) {
         v->conteudo[i] = rand() % v->tamanho;
     }
 }
 
-void PreencherVetorDesordenado(Vetor *v) {
+void PreencherVetorOrdenado(Vetor *v) {
     for (int i = 0; i < v->tamanho; i++) {
         int min = i * 100 + (i > 0 ? 1 : 0);
         int max = (i + 1) * 100;
