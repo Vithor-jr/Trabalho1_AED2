@@ -16,7 +16,7 @@ gcc Questao1_2/main_questao1_2.c Questao1_2/questao1.c Questao1_2/questao2.c mod
 ### Questão 3
 
 ```bash
-gcc Questao3/main_questao3.c Questao3/questao3.c models/Estatisticas/Estatisticas.c models/Vetor/Vetor.c -o main3
+gcc Questao3/main_questao3.c Questao3/questao3.c models/Estatisticas/Estatisticas.c models/Vetor/Vetor.c -o main3 -lm
 ```
 ### Questão 5
 
