@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "questao3.h"
 
 #include "questao3.h"
 #include "../models/Estatisticas/Estatisiticas.h"
