@@ -1,98 +1,102 @@
 #include <stdio.h>
-#include "questao3.h"
 #include <stdlib.h>
 #include <time.h>
 
+#include "questao3.h"
+#include "../models/Estatisticas/Estatisiticas.h"
+
 #define TAM 100000
+#define RODADAS 10
 
-int main(){
-    int rodadas = 10;
-
+int main() {
     srand(time(NULL));
+    double times[5][RODADAS];
+    double medias[5], desvios[5];
 
-    //vetor array, bubble, insertion, selection, merge, quick;
-    int *array = (int *)malloc(TAM * sizeof(int));
-    int *bubble = (int *)malloc(TAM * sizeof(int));
-    int *insertion = (int *)malloc(TAM * sizeof(int));
-    int *selection = (int *)malloc(TAM * sizeof(int));
-    int *merge = (int *)malloc(TAM * sizeof(int));
-    int *quick = (int *)malloc(TAM * sizeof(int));
+    Vetor array     = CriarVetor(TAM);
+    Vetor bubble    = CriarVetor(TAM);
+    Vetor insertion = CriarVetor(TAM);
+    Vetor selection = CriarVetor(TAM);
+    Vetor merge     = CriarVetor(TAM);
+    Vetor quick     = CriarVetor(TAM);
 
-    for (int i=1; i<=rodadas; i++){
-        PreencherVetor(array, TAM);
+    for (int i = 0; i < RODADAS; i++) {
+        PreencherVetorDesordenado(&array);
 
-        // Clonando o vetor
-        CopiarVetor(array, bubble, TAM);
-        CopiarVetor(array, insertion, TAM);
-        CopiarVetor(array, selection, TAM);
-        CopiarVetor(array, merge, TAM);
-        CopiarVetor(array, quick, TAM);
+        CopiarVetor(&array, &bubble);
+        CopiarVetor(&array, &insertion);
+        CopiarVetor(&array, &selection);
+        CopiarVetor(&array, &merge);
+        CopiarVetor(&array, &quick);
 
-        printf("\n===== RODADA %d =====\n", i);
-
-        //printf("VETOR ORIGINAL: ");    
-        //MostrarVetor(array, TAM);
+        printf("\n=+-+-+-+-+-+-+- RODADA %d +-+-+-+-+-+-+-\n", i+1);
 
         clock_t ini, fim;
         double tempo;
 
-		//++++++++++ BUBBLE SORT ++++++++++
-        ini = clock();
-        BubbleSort(bubble, TAM);
+        ini = clock(); 
+        BubbleSort(&bubble);       
         fim = clock();
-        tempo = (double)(fim - ini) / CLOCKS_PER_SEC;
+        times[0][i] = (double)(fim - ini) / CLOCKS_PER_SEC;
+        printf("BUBBLESORT:    %lf s\n", times[0][i]);
 
-        printf("BUBBLESORT: ");
-        //MostrarVetor(bubble, TAM);
-        printf("Tempo: %f s\n", tempo);
-
-        //++++++++++ INSERTION SORT ++++++++++
-        ini = clock();
-        InsertionSort(insertion, TAM);
+        ini = clock(); 
+        InsertionSort(&insertion); 
         fim = clock();
-        tempo = (double)(fim - ini) / CLOCKS_PER_SEC;
+        times[1][i] = (double)(fim - ini) / CLOCKS_PER_SEC;
+        printf("INSERTIONSORT: %lf s\n", times[1][i]);
 
-        printf("INSERTIONSORT: ");
-        //MostrarVetor(insertion, TAM);
-        printf("Tempo: %f s\n", tempo);
-
-        //++++++++++ SELECTION SORT ++++++++++
-        ini = clock();
-        SelectionSort(selection, TAM);
+        ini = clock(); 
+        SelectionSort(&selection); 
         fim = clock();
-        tempo = (double)(fim - ini) / CLOCKS_PER_SEC;
+        times[2][i] = (double)(fim - ini) / CLOCKS_PER_SEC;
+        printf("SELECTIONSORT: %f s\n", times[2][i]);
 
-        printf("SELECTIONSORT: ");
-        //MostrarVetor(selection, TAM);
-        printf("Tempo: %f s\n", tempo);
-
-        //++++++++++ MERGE SORT ++++++++++
-        ini = clock();
-        MergeSort(merge, TAM);
+        ini = clock(); 
+        MergeSort(&merge);         
         fim = clock();
-        tempo = (double)(fim - ini) / CLOCKS_PER_SEC;
+        times[3][i] = (double)(fim - ini) / CLOCKS_PER_SEC;
+        printf("MERGESORT:     %f s\n", times[3][i]);
 
-        printf("MERGESORT: ");
-        //MostrarVetor(merge, TAM);
-        printf("Tempo: %f s\n", tempo);
-
-        //++++++++++ QUICK SORT ++++++++++
-        ini = clock();
-        QuickSort(quick, TAM);
+        ini = clock(); 
+        QuickSort(&quick);         
         fim = clock();
-        tempo = (double)(fim - ini) / CLOCKS_PER_SEC;
-
-        printf("QUICKSORT: ");
-        //MostrarVetor(quick, TAM);
-        printf("Tempo: %f s\n", tempo);
+        times[4][i] = (double)(fim - ini) / CLOCKS_PER_SEC;
+        printf("QUICKSORT:     %f s\n", times[4][i]);
     }
 
-    free(array);
-    free(bubble);
-    free(insertion);
-    free(selection);
-    free(merge);
-    free(quick);
-    
+    for (int i = 0; i<5; i++){
+        medias[i] = CalcularMedia(times[i], RODADAS);
+        desvios[i]  = CalcularDesvioPadrao(times[i], RODADAS, medias[i]);
+    }
+
+    printf("\n\n+-+-+-+-+-+-+-+ RESULTADOS +-+-+-+-+-+-+-+\n");
+    printf("1 - BUBBLESORT:\n");
+    printf("    Media:         %lf\n", medias[0]);
+    printf("    Desvio Padrao: %lf\n\n", desvios[0]);
+
+    printf("2 - INSERTIONSORT:\n");
+    printf("    Media:         %lf\n", medias[1]);
+    printf("    Desvio Padrao: %lf\n\n", desvios[1]);
+
+    printf("3 - SELECTIONSORT:\n");
+    printf("    Media:         %lf\n", medias[2]);
+    printf("    Desvio Padrao: %lf\n\n", desvios[2]);
+
+    printf("4 - MERGESORT:\n");
+    printf("    Media:         %lf\n", medias[3]);
+    printf("    Desvio Padrao: %lf\n\n", desvios[3]);
+
+    printf("5 - QUICKSORT:\n");
+    printf("    Media:         %lf\n", medias[4]);
+    printf("    Desvio Padrao: %lf\n\n", desvios[4]);
+
+    LiberarVetor(&array);
+    LiberarVetor(&bubble);
+    LiberarVetor(&insertion);
+    LiberarVetor(&selection);
+    LiberarVetor(&merge);
+    LiberarVetor(&quick);
+
     return 0;
 }
