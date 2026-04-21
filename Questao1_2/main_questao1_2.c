@@ -111,10 +111,10 @@ void Questao2 (Vetor array) {
     }
 
     // mostrando a tabela dos resultados
-    printf("\nID | Chave | Vetor(ms) | Lista(ms) | Status\n");
+    printf("\nID | Chave | Vetor(s) | Lista(s) | Status\n");
     for (int i = 0; i < NUMERO_BUSCAS; i++) {
         printf("%d | %d| %.4f | %.4f | %s\n", 
-               i + 1, chaves[i], tempos_vetor[i]*1000, tempos_lista[i]*1000, 
+               i + 1, chaves[i], tempos_vetor[i], tempos_lista[i], 
                (res_vetor[i] == 1) ? "OK" : "N/A");
     }
 
@@ -140,7 +140,7 @@ void Questao2 (Vetor array) {
     printf("\n================ RESULTADOS FINAIS ================\n");
     printf("Vetor -> Media: %.6f ms | Desvio: %.6f ms\n", media_vetor * 1000, desvio_vetor * 1000);
     printf("Lista -> Media: %.6f ms | Desvio: %.6f ms\n", media_lista * 1000, desvio_lista * 1000);
-    printf("===================================================\n");
+    printf("===g================================================\n");
 
     free(lista);
 }
