@@ -136,10 +136,10 @@ void Questao2 (Vetor array) {
     desvio_vetor = sqrt(desvio_vetor / NUMERO_BUSCAS);
     desvio_lista = sqrt(desvio_lista / NUMERO_BUSCAS);
 
-    // resumo resultadsos
+    // resumo resultados
     printf("\n================ RESULTADOS FINAIS ================\n");
-    printf("Vetor -> Media: %.6f ms | Desvio: %.6f ms\n", media_vetor * 1000, desvio_vetor * 1000);
-    printf("Lista -> Media: %.6f ms | Desvio: %.6f ms\n", media_lista * 1000, desvio_lista * 1000);
+    printf("Vetor -> Media: %.6f s| Desvio: %.6f s\n", media_vetor, desvio_vetor);
+    printf("Lista -> Media: %.6f s| Desvio: %.6f s\n", media_lista, desvio_lista);
     printf("===g================================================\n");
 
     free(lista);
